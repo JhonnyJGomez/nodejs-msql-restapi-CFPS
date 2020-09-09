@@ -1,8 +1,8 @@
 # What is this?
-This is a simple REST API using Javascript Technologies and PostgreSQL.
+This is REST API using Javascript Technologies and SQL Server.
 - nodejs
 - express
-- postgreSQL
+- SQL Server
 - sequelize
 - babel 
 
@@ -19,15 +19,18 @@ This is a simple REST API using Javascript Technologies and PostgreSQL.
         ├── controllers
         │   ├── project.controller.js
         │   └── task.controller.js
+        │   └── week.controller.js
         ├── database
         │   └── database.js
         ├── index.js
         ├── models
         │   ├── Project.js
         │   └── Task.js
+        │   └── Week.js
         └── routes
             ├── projects.js
             └── tasks.js
+            └── weeks.js
 
-    6 directories, 13 files
+    
 ```
