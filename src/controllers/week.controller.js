@@ -8,7 +8,8 @@ export async function getWeek(req, res) {
     var date = new Date(fecha);
     // get day in a week 0 = sunday and 6 = saturday
     var n_day = date.getDay();
-
+    console.log("n_day", n_day)
+    
     // setting the Thursday of the week respect of got date from the URL 
     if (n_day == 0) {
         date.setDate(date.getDate() - 3);
@@ -29,13 +30,21 @@ export async function getWeek(req, res) {
         attributes: ['id'],
         where: {
             fec_inicial: date
-        }
+        }        
     });
-
-    res.json({
-        num_semana: week,
-    //    ingresada: fecha,
-    //    jueves_sem: date
-
-    }); 
+    
+   const semana = cleanObj(week);
+   
+    res.send ({
+        "num_semana": semana.id
+    });
 }; 
+
+
+function cleanObj(query) {
+    var toJson = JSON.stringify(query)
+    toJson = toJson.replace('[','');
+    toJson = toJson.replace(']','');
+    var obj = JSON.parse(toJson);
+    return obj;
+}
