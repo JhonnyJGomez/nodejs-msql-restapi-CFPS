@@ -1,5 +1,4 @@
 import Week from '../models/Week';
-var moment = require('moment');
 
 export async function getWeek(req, res) {
     // extract date from URL 
@@ -27,7 +26,7 @@ export async function getWeek(req, res) {
    console.log("pasandola a jueves ",date); 
    
       const week = await Week.findAll({
-        attributes: ['id'],
+        attributes: ['num_semana'],
         where: {
             fec_inicial: date
         }        
@@ -36,15 +35,20 @@ export async function getWeek(req, res) {
    const semana = cleanObj(week);
    
     res.send ({
-        "num_semana": semana.id
+        "num_semana": semana.num_semana
     });
 }; 
 
-
+// convierte la respuesta de sequelize en string, lo limpia para convertirlo en json y devolver el objeto. 
 function cleanObj(query) {
-    var toJson = JSON.stringify(query)
-    toJson = toJson.replace('[','');
-    toJson = toJson.replace(']','');
-    var obj = JSON.parse(toJson);
+    if (query != ''){
+        var toJson = JSON.stringify(query)
+        toJson = toJson.replace('[','');
+        toJson = toJson.replace(']','');
+        var obj = JSON.parse(toJson);
+    }else{
+        obj = "{}"
+    }
+
     return obj;
 }
