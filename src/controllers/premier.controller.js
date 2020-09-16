@@ -2,15 +2,21 @@ import Premier from '../models/Premier';
 
 export async function getPremiersbyWeek(req, res) {
      // extract week from URL 
-     var week  = req.query.num_semana;
-     console.log("entro al controller", week);
+     var idWeek  = req.query.id_semana;
+     
+
+
 
      const premier = await Premier.findAll({
-        attributes: ['id','cod_pelicula','titulo','descripcion','formato','idioma','id_fec_estreno','id_genero','id_rating','id_distributor'],
+        attributes: ['cod_pelicula','titulo','id_rating','id_distributor','id_genero'],
         where: {
-            id_fec_estreno: week
+            id_fec_estreno: idWeek
         }        
     });
-    res.json(premier);
+
+    const premierQuemado = "value: [{Cod_pelicula: 'HO00001', title: 'MALEFICENT: MISTRESS OF EVIL',Rating: 'A',Dist: 'DISNEY',Genre: 'Adventure'}}]";
+    res.json({
+        value:premier 
+    });
 }
 

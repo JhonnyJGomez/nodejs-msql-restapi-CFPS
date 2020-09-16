@@ -26,7 +26,7 @@ export async function getWeek(req, res) {
    console.log("pasandola a jueves ",date); 
    
       const week = await Week.findAll({
-        attributes: ['num_semana'],
+        attributes: ['id','num_semana'],
         where: {
             fec_inicial: date
         }        
@@ -35,7 +35,8 @@ export async function getWeek(req, res) {
    const semana = cleanObj(week);
    
     res.send ({
-        "num_semana": semana.num_semana
+        "id": semana.id,
+        "num_semana": semana.num_semana        
     });
 }; 
 
