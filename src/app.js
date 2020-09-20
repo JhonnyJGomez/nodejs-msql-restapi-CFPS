@@ -9,6 +9,8 @@ import taskRoutes from './routes/tasks';
 import weekRoutes from './routes/weeks';
 import cityRoutes from './routes/cities';
 import premierRoutes from './routes/premiers';
+import forecastRoutes from './routes/forecasts';
+
 
 // Middlewares
 app.use(morgan('dev'));
@@ -20,5 +22,6 @@ app.use('/api/tasks', taskRoutes);
 app.use('/api/semanas', weekRoutes);
 app.use('/api/ciudades', cityRoutes);
 app.use('/api/peliculas_semanas', premierRoutes);
+app.use('/api/peliculas_forecast', forecastRoutes);
 
 export default app;

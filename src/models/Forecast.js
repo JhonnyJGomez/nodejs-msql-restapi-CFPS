@@ -3,40 +3,28 @@ const { sequelize } = require('../database/database');
 
 //const Task = require('./Week');
 
-const Premier = sequelize.define('peliculas',{
+const Forecast = sequelize.define('forecasts',{
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
     },
-    cod_pelicula:{
+    cod_forecast:{
         type: Sequelize.TEXT
     },
-    titulo:{
-        type: Sequelize.TEXT
-    },
-    descripcion:{
-        type: Sequelize.TEXT
-    },
-    formato:{
-        type: Sequelize.TEXT
-    },
-    idioma:{
-        type: Sequelize.TEXT
-    },
-    id_fec_estreno:{
+    id_semana:{
         type: Sequelize.INTEGER
     },
-    id_genero:{
+    estimacion_asistencia:{
         type: Sequelize.INTEGER
     },
-    id_rating:{
+    id_pelicula:{
         type: Sequelize.INTEGER
     },
-    id_distributor:{
+    id_ciudad:{
         type: Sequelize.INTEGER
     }
 },{
     timestamps: false
 });
 
-module.exports = Premier;
+module.exports = Forecast;
