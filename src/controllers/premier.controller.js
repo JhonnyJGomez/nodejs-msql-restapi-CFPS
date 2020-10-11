@@ -1,5 +1,5 @@
 import Premier from '../models/Premier';
-import Forecast from '../models/Forecast';
+
 
 export async function getPremiersbyWeek(req, res) {
      // extract week from URL 

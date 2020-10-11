@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database/database');
+const Forecast = require('./Forecast');
 
 //const Task = require('./Week');
 

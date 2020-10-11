@@ -32,7 +32,7 @@ export async function getWeek(req, res) {
         }        
     });
     
-   const semana = cleanObj(week);
+    const semana = cleanObj(week);
    
     res.send ({
         "id": semana.id,

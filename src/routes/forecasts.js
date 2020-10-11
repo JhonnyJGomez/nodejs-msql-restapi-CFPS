@@ -2,10 +2,13 @@ import { Router } from 'express'
 
 const router = Router();
 
-import { createForecast } from '../controllers/forecast.controller'
+import { createForecast, getPremierbyForecast } from '../controllers/forecast.controller'
 
 
 // Routes
 router.post('/create', createForecast);
+router.get('/forecast', getPremierbyForecast);
 
-export default router; 
+
+
+export default router;
