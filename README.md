@@ -17,19 +17,19 @@ This is REST API using Javascript Technologies and SQL Server.
     └── src
         ├── app.js
         ├── controllers
-        │   ├── project.controller.js
-        │   └── task.controller.js
+        │   ├── cinema.controller.js
+        │   └── city.controller.js
         │   └── week.controller.js
         ├── database
         │   └── database.js
         ├── index.js
         ├── models
-        │   ├── Project.js
-        │   └── Task.js
+        │   ├── Cinema.js
+        │   └── City.js
         │   └── Week.js
         └── routes
-            ├── projects.js
-            └── tasks.js
+            ├── cinemas.js
+            └── cities.js
             └── weeks.js
 
     
