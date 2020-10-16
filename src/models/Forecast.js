@@ -1,6 +1,6 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database/database');
-const Premier = require('./Premier');
+
 
 //const Task = require('./Week');
 

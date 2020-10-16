@@ -11,6 +11,7 @@ import cityRoutes from './routes/cities';
 import premierRoutes from './routes/premiers';
 import forecastRoutes from './routes/forecasts';
 import parametrosRoutes from './routes/parameters';
+import getCinemasbyCity from './routes/cinemas';
 
 // Middlewares
 app.use(morgan('dev'));
@@ -24,6 +25,8 @@ app.use('/api/ciudades', cityRoutes);
 app.use('/api/peliculas_semanas', premierRoutes);
 app.use('/api/peliculas_forecast', forecastRoutes);
 app.use('/api/parametros', parametrosRoutes);
+app.use('/api/cines', getCinemasbyCity);
+
 
 
 export default app;

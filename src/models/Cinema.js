@@ -1,29 +1,28 @@
 const Sequelize = require('sequelize');
 const { sequelize } = require('../database/database');
 
-
-const Parameter = sequelize.define('parametros',{
+const Cinema = sequelize.define('cines',{
     id: {
         type: Sequelize.INTEGER,
         primaryKey: true
     },
-    cod_parametro:{
+    cod_cine:{
         type: Sequelize.TEXT
     },
-    nom_parametro:{
+    nom_cine:{
         type: Sequelize.TEXT
     },
-    type:{
-        type: Sequelize.TEXT
+    id_ciudad: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
     },
-    about:{
-        type: Sequelize.TEXT
+    ticket_promedio: {
+        type: Sequelize.INTEGER,
+        primaryKey: true
     },
-    status:{
-        type: Sequelize.BOOLEAN
-    }
 },{
     timestamps: false
 });
 
-module.exports = Parameter;
+module.exports = Cinema;
+

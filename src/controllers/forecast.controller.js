@@ -69,10 +69,8 @@ console.log(users);
 
     try {
 
-        const premiersbyWeek = await sequelize.query("select	forecasts.id as id_forecast, forecasts.cod_forecast as cod_forecast,peliculas.id as id_movie,peliculas.cod_pelicula as cod_pelicula,peliculas.titulo as nom_pelicula,forecasts.estimacion_asistencia as asistencia from forecasts, peliculas where	forecasts.id_pelicula = peliculas.id and id_ciudad = :id_ciudad and	id_semana = :id_semana",
-  
-      //  const premiersbyWeek = await sequelize.query('EXEC ForecastbyWeekCity :id_ciudad, :id_semana',
-          {replacements: { id_ciudad: req.query.id_ciudad, id_semana:  req.query.num_semana}, type: QueryTypes.SELECT })
+        const premiersbyWeek = await sequelize.query("select forecasts.id as id_forecast, forecasts.cod_forecast as cod_forecast,peliculas.id as id_movie,peliculas.cod_pelicula as cod_pelicula,peliculas.titulo as nom_pelicula,forecasts.estimacion_asistencia as asistencia from forecasts, peliculas where	forecasts.id_pelicula = peliculas.id and id_ciudad = :id_ciudad and	id_semana = :id_semana",
+        {replacements: { id_ciudad: req.query.id_ciudad, id_semana:  req.query.num_semana}, type: QueryTypes.SELECT })
  
           return res.json({
             Value: premiersbyWeek
