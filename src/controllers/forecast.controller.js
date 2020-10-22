@@ -114,6 +114,7 @@ export function getForecastReport(req, res) {
             and f.id_semana = s.id
             and p.id_distributor = d.id
             and p.id_genero = g.id
+            and p.id_rating = r.id
             and fp.id_pelicula = p.id
             and fp.id_parametro = 8
         `,
