@@ -98,3 +98,33 @@ export async function getPremierbyForecast(req, res) {
         console.log(error);
     }
 }
+
+export function getForecastReport(req, res) {
+    sequelize.query(
+        `select fp.value as Rank,
+            p.titulo as Title,
+            r.nom_rating as Rating,
+            d.nom_distribuidor as Dist,
+            g.nom_genero as Genre,
+            s.fec_inicial as ReleaseDate,
+            f.estimacion_asistencia as 'Scored Labels'
+            from forecasts f, peliculas p, ratings r, distribuidores d, semanas s, generos g, forecast_parametros fp
+            where f.id_pelicula = p.id
+            and f.cod_forecast = :cod_forecast
+            and f.id_semana = s.id
+            and p.id_distributor = d.id
+            and p.id_genero = g.id
+            and fp.id_pelicula = p.id
+            and fp.id_parametro = 8
+        `,
+        { replacements: { cod_forecast: req.params.cod_forecast}, type: QueryTypes.SELECT }
+    ).then(function(response) {
+        res.json({
+            Results: {
+                output1: response
+            }
+        });
+    }, function() {
+        console.log("Error obteniendo el forecast");
+    });
+}
