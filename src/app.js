@@ -14,6 +14,7 @@ import forecastRoutes from './routes/forecasts';
 import parametrosRoutes from './routes/parameters';
 import getCinemasbyCity from './routes/cinemas';
 import parameterMoviesRoutes from './routes/parameterMovies';
+import generateScheduleRoutes from './routes/generateSchedule';
 
 // Middlewares
 app.use(morgan('dev'));
@@ -30,6 +31,7 @@ app.use('/api/peliculas_forecast', forecastRoutes);
 app.use('/api/parametros', parametrosRoutes);
 app.use('/api/cines', getCinemasbyCity);
 app.use('/api/peliculas_parametrizar', parameterMoviesRoutes);
+app.use('/api/generar_programacion', generateScheduleRoutes);
 
 
 
