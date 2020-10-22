@@ -4,32 +4,50 @@ const { sequelize } = require('../database/database');
 const { QueryTypes } = require('sequelize');
 
 /**
- * Validar si un parametro para el forcast existe actualiza los valores de no ser
- * asi inserta un nuevo parametro del forcast.
+ * Valida si se necesita crear o actualizasr un parametro
+ *
+ * @param paramIndex - Index of param array
+ * @param req - http.IncomingMessage
+ * @param res - http.ServerResponse
+ */
+function checkMovieParameter(paramIndex, req, res) {
+    const { Value } = req.body;
+
+    if (Value[paramIndex]) {
+        const paramToCheck = Value[paramIndex];
+
+        ParameterMovie.findOne({
+            attributes: ['id_parametro', 'id_pelicula', 'value', 'id'],
+            where: {
+                id_parametro: paramToCheck.id_parametro,
+                id_pelicula: paramToCheck.id_pelicula
+            },
+        }).then(function (param) {
+            if (param) {
+                updateMovieParameter(param, paramToCheck.value).then(function () {
+                    const nextParam = paramIndex + 1;
+                    checkMovieParameter(nextParam, req, res);
+                }, function () { })
+            } else {
+                createMovieParameter(paramToCheck).then(function () {
+                    const nextParam = paramIndex + 1;
+                    checkMovieParameter(nextParam, req, res);
+                }, function () { })
+            }
+        })
+    } else {
+        response(req, res);
+    }
+}
+
+/**
+ * Responde a la UI con los datos del parametro actualizado
  *
  * @param req - http.IncomingMessage
  * @param res - http.ServerResponse
  */
-export async function validateMovieParameter(req, res) {
-    const { Value } = req.body;
-
-    Value.forEach(async function (element) {
-        const param = await ParameterMovie.findOne({
-            attributes: ['id_parametro', 'id_pelicula', 'value', 'id'],
-            where: {
-                id_parametro: element.id_parametro,
-                id_pelicula: element.id_pelicula
-            },
-        });
-
-        if (param) {
-            await updateMovieParameter(param, element.value)
-        } else {
-            await createMovieParameter(element)
-        }
-    })
-
-    const queryAzure = await sequelize.query(`select
+function response(req, res) {
+    sequelize.query(`select
         forecast_parametros.value as Rank,
         peliculas.titulo as Title,
         ratings.nom_rating as Rating,
@@ -45,25 +63,33 @@ export async function validateMovieParameter(req, res) {
         and peliculas.id = forecast_parametros.id_pelicula
         and forecast_parametros.id_parametro in (select id from parametros where id_parametro = 8)
     `,
-    { replacements: { id_pelicula: req.query.id_pelicula}, type: QueryTypes.SELECT })
-
-    return res.json({
-        value: queryAzure
-    });
-};
+    {
+        replacements: {
+            id_pelicula: req.query.id_pelicula
+        },
+        type: QueryTypes.SELECT
+    }).then(function (response) {
+        res.json({
+            value: response
+        });
+    }, function() {
+        console.log("Un error ha ocurrido obteniendo los datos despues de actualizar los datos de la pelicula en el forecast");
+    })
+}
 
 /**
  * Crea un nuevo parametro en el forcast.
  *
  * @param params - Objeto con los datos para crear un registro
  */
-async function createMovieParameter(params) {
-    try {
-        await ParameterMovie.create(params);
-    }
-    catch (error) {
-        console.log(error);
-    }
+function createMovieParameter(params) {
+    return new Promise(function (resolve, reject) {
+        ParameterMovie.create(params).then(function () {
+            resolve();
+        }, function () {
+            reject();
+        });
+    });
 };
 
 /**
@@ -72,10 +98,24 @@ async function createMovieParameter(params) {
  * @param param - Instancia del modelo ParameterMovie
  * @param valueToSave - Objeto con los datos para crear un registro
  */
-async function updateMovieParameter(param, valueToSave) {
-    try {
-        await param.update({ value: valueToSave })
-    } catch (e) {
-        console.log(e);
-    }
+function updateMovieParameter(param, valueToSave) {
+    return new Promise(function (resolve, reject) {
+        param.update({ value: valueToSave }).then(function () {
+            resolve();
+        }, function () {
+            reject();
+        });
+    });
+};
+
+/**
+ * Validar si un parametro para el forcast existe actualiza los valores de no ser
+ * asi inserta un nuevo parametro del forcast.
+ *
+ * @param req - http.IncomingMessage
+ * @param res - http.ServerResponse
+ */
+export function validateMovieParameter(req, res) {
+    let i = 0;
+    checkMovieParameter(i, req, res)
 };
