@@ -7,6 +7,6 @@ import { createForecast, getPremierbyForecast, updateForecast } from '../control
 // Routes
 router.post('/create', createForecast);
 router.get('/forecast', getPremierbyForecast);
-router.post('/update_forecast/:id_forecast', updateForecast);
+router.post('/update_forecast/:cod_forecast', updateForecast);
 
 export default router;
