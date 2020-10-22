@@ -47,7 +47,7 @@ export async function validateMovieParameter(req, res) {
     `,
     { replacements: { id_pelicula: req.query.id_pelicula}, type: QueryTypes.SELECT })
 
-    res.json({
+    return res.json({
         value: queryAzure
     });
 };
