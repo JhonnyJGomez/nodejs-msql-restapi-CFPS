@@ -12,7 +12,7 @@ const { QueryTypes } = require('sequelize');
  */
 export async function validateMovieParameter(req, res) {
     const { Value } = req.body;
-​
+
     Value.forEach(async function (element) {
         const param = await ParameterMovie.findOne({
             attributes: ['id_parametro', 'id_pelicula', 'value', 'id'],
@@ -21,14 +21,14 @@ export async function validateMovieParameter(req, res) {
                 id_pelicula: element.id_pelicula
             },
         });
-​
+
         if (param) {
             await updateMovieParameter(param, element.value)
         } else {
             await createMovieParameter(element)
         }
     })
-​
+
     const queryAzure = await sequelize.query(`select
         forecast_parametros.value as Rank,
         peliculas.titulo as Title,
@@ -46,12 +46,12 @@ export async function validateMovieParameter(req, res) {
         and forecast_parametros.id_parametro in (select id from parametros where id_parametro = 8)
     `,
     { replacements: { id_pelicula: req.query.id_pelicula}, type: QueryTypes.SELECT })
-​
+
     res.json({
         value: queryAzure
     });
 };
-​
+
 /**
  * Crea un nuevo parametro en el forcast.
  *
@@ -65,7 +65,7 @@ async function createMovieParameter(params) {
         console.log(error);
     }
 };
-​
+
 /**
  * Actualiza un parametro en el forcast.
  *
