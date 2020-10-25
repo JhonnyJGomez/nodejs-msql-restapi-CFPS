@@ -17,6 +17,7 @@ export function generateSchedule(req, res) {
         and pe.id in (:premieres_forecast_ids)
         and pe.id_genero = ge.id
         and pe.id_rating = ra.id
+        and pe.id = pr.id_pelicula
         and sa.id_cines = :cinemaId
         order by pr.id_dia, sa.nom_sala, pr.id_tiempo asc
     `,

@@ -11,7 +11,7 @@ Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
 
 
 //MSSQL
-/*export const sequelize = new Sequelize(
+export const sequelize = new Sequelize(
     'Programacion',
     'admin',
     'admin', {    
@@ -24,8 +24,8 @@ Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
         validateBulkLoadParameters: true
       }
     }
-  });*/
-
+  });
+/*
   export const sequelize = new Sequelize(
     'Programacion',
     'admin',
@@ -40,4 +40,4 @@ Sequelize.DATE.prototype._stringify = function _stringify(date, options) {
         instanceName: 'SQLEXPRESS01'
       }
     }
-  });
+  });*/
