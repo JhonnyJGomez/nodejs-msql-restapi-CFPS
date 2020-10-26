@@ -10,7 +10,7 @@ const { QueryTypes } = require('sequelize');
 export function generateSchedule(req, res) {
     sequelize.query(`
         select pe.id, pe.titulo, ge.nom_genero, ra.nom_rating, pr.id_dia, sa.nom_sala, sa.capacidad, pr.id_tiempo, ci.nom_cine
-        from peliculas pe, generos ge, ratings ra, programacion pr , salas sa
+        from peliculas pe, generos ge, ratings ra, programacion pr , salas sa, cines ci
         where pr.estado = 1
         and pr.id_semana = :week
         and pr.id_sala = sa.id
